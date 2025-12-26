@@ -61,3 +61,19 @@ body {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* Custom Scrollbar untuk Daftar Arsip */
+.scrollbar-custom::-webkit-scrollbar {
+    width: 6px;
+}
+.scrollbar-custom::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+.scrollbar-custom::-webkit-scrollbar-thumb {
+    background: #A52A2A; /* Warna SD Merah */
+    border-radius: 10px;
+}
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+    background: #800000;
+}
