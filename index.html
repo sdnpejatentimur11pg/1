@@ -68,11 +68,12 @@
                 </button>
             </div>
             
-            <div id="previous-news-section" class="hidden mt-12 bg-gray-50 rounded-3xl p-8 border border-gray-100">
+            <div id="previous-news-section" class="hidden mt-12 bg-gray-50 rounded-3xl p-8 border border-gray-100 shadow-inner">
                 <h3 class="text-xl font-bold mb-6 text-gray-800 flex items-center gap-2">
                     <i data-lucide="archive" class="text-sd-red"></i> Arsip Pengumuman
                 </h3>
-                <div id="news-archive-list" class="divide-y divide-gray-200">
+                
+                <div id="news-archive-list" class="max-h-[400px] overflow-y-auto pr-4 divide-y divide-gray-200 scrollbar-custom">
                     </div>
             </div>
         </div>
@@ -224,35 +225,7 @@
                 </div>
         </div>
     </section>
-    <div class="mt-8 opacity-50 hover:opacity-100 transition-opacity">
-        <button onclick="showLogin()" class="text-[10px] text-gray-500">Panel Kelola</button>
-    </div>
     
-    <div id="admin-modal" class="fixed inset-0 z-[110] hidden items-center justify-center p-4 bg-black/80">
-        <div class="bg-white p-8 rounded-3xl w-full max-w-md">
-            <h3 class="text-xl font-bold mb-4">Login Admin</h3>
-            <input type="password" id="admin-pass" class="w-full p-3 border rounded-xl mb-4" placeholder="Masukkan Sandi...">
-            <div class="flex gap-2">
-                <button onclick="attemptLogin()" class="flex-1 bg-sd-red text-white py-3 rounded-xl font-bold">Masuk</button>
-                <button onclick="closeAdminModal()" class="px-4 py-3 bg-gray-200 rounded-xl">Batal</button>
-            </div>
-        </div>
-    </div>
-    
-    <div id="admin-panel" class="fixed inset-0 z-[120] hidden bg-gray-100 overflow-y-auto p-8">
-        <div class="max-w-2xl mx-auto bg-white p-8 rounded-3xl shadow-xl">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl font-bold">Tambah Pengumuman</h2>
-                <button onclick="logout()" class="text-red-600 font-bold">Keluar</button>
-            </div>
-            <form id="add-news-form" class="space-y-4">
-                <input type="text" id="news-title" placeholder="Judul Pengumuman" class="w-full p-3 border rounded-xl" required>
-                <textarea id="news-content" placeholder="Isi Informasi" class="w-full p-3 border rounded-xl h-32" required></textarea>
-                <input type="text" id="news-img" placeholder="Link Gambar (Opsional)" class="w-full p-3 border rounded-xl">
-                <button type="submit" class="w-full bg-sd-red text-white py-4 rounded-xl font-bold">Posting Sekarang</button>
-            </form>
-        </div>
-    </div>
     <footer id="kontak" class="py-24 bg-gray-900 text-gray-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-3 gap-12">
@@ -266,8 +239,8 @@
                 <div>
                     <h5 class="text-white font-bold mb-6">Navigasi</h5>
                     <div class="grid grid-cols-2 gap-2 text-sm">
-                        <a href="#profil" class="hover:text-sd-red">Visi Misi</a>
-                        <a href="#fasilitas" class="hover:text-sd-red">Fasilitas</a>
+                        <a href="#profil" class="hover:text-sd-red">Tentang Kami</a>
+                        <a href="#informasi" class="hover:text-sd-red">Pengumuman Terbaru</a>
                         <a href="#pendidik" class="hover:text-sd-red">Guru</a>
                         <a href="#galeri" class="hover:text-sd-red">Galeri</a>
                     </div>
@@ -296,6 +269,35 @@
                 <p>© 2025 SDN Pejaten Timur 11. Hak Cipta Dilindungi.</p>
             </div>
         </div>
+        <div class="mt-8 opacity-50 hover:opacity-100 transition-opacity">
+        <button onclick="showLogin()" class="text-[10px] text-gray-500">Panel Kelola</button>
+    </div>
+    
+    <div id="admin-modal" class="fixed inset-0 z-[110] hidden items-center justify-center p-4 bg-black/80">
+        <div class="bg-white p-8 rounded-3xl w-full max-w-md">
+            <h3 class="text-xl font-bold mb-4">Login Admin</h3>
+            <input type="password" id="admin-pass" class="w-full p-3 border rounded-xl mb-4" placeholder="Masukkan Sandi...">
+            <div class="flex gap-2">
+                <button onclick="attemptLogin()" class="flex-1 bg-sd-red text-white py-3 rounded-xl font-bold">Masuk</button>
+                <button onclick="closeAdminModal()" class="px-4 py-3 bg-gray-200 rounded-xl">Batal</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="admin-panel" class="fixed inset-0 z-[120] hidden bg-gray-100 overflow-y-auto p-8">
+        <div class="max-w-2xl mx-auto bg-white p-8 rounded-3xl shadow-xl">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold">Tambah Pengumuman</h2>
+                <button onclick="logout()" class="text-red-600 font-bold">Keluar</button>
+            </div>
+            <form id="add-news-form" class="space-y-4">
+                <input type="text" id="news-title" placeholder="Judul Pengumuman" class="w-full p-3 border rounded-xl" required>
+                <textarea id="news-content" placeholder="Isi Informasi" class="w-full p-3 border rounded-xl h-32" required></textarea>
+                <input type="text" id="news-img" placeholder="Link Gambar (Opsional)" class="w-full p-3 border rounded-xl">
+                <button type="submit" class="w-full bg-sd-red text-white py-4 rounded-xl font-bold">Posting Sekarang</button>
+            </form>
+        </div>
+    </div>
     </footer>
 
     <script src="script.js"></script>
