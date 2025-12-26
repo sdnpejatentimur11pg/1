@@ -1,79 +1,66 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
+/* Reset & Base */
 body {
-    font-family: 'Plus+Jakarta+Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     scroll-behavior: smooth;
+    background-color: #F8FAFC; /* Slate-50: Lebih dingin daripada gray biasa */
+    color: #1E293B; /* Slate-800: Teks tidak hitam pekat agar mata nyaman */
 }
 
-/* Color Variables / Custom Classes */
-.bg-sd-red {
-    background-color: #A52A2A; 
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
 }
-
-.text-sd-red {
-    color: #A52A2A;
-}
-
-.border-sd-red {
-    border-color: #A52A2A;
-}
-
-/* Hero Styles */
-.hero-gradient {
-    background: linear-gradient(rgba(165, 42, 42, 0.8), rgba(165, 42, 42, 0.6)), 
-                url('https://lh3.googleusercontent.com/d/1rVGztFi_ZH9yQwTYDqGOYDXMCkN_fnAF');
-    background-size: cover;
-    background-position: center;
-}
-
-/* Teacher Card Animation */
-.teacher-card-container {
-    transition: opacity 0.5s ease-in-out;
-}
-
-/* Modal Scrollbar Customization */
-.modal-scroll::-webkit-scrollbar {
-    width: 6px;
-}
-.modal-scroll::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
-.modal-scroll::-webkit-scrollbar-thumb {
-    background: #A52A2A;
+::-webkit-scrollbar-thumb {
+    background: #DC2626; /* Merah SD Baru */
     border-radius: 10px;
 }
-
-/* Modal Behavior */
-#teacher-modal {
-    display: none;
+::-webkit-scrollbar-thumb:hover {
+    background: #B91C1C;
 }
 
+/* Hero Section Enhancement */
+.hero-bg {
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('https://lh3.googleusercontent.com/d/1rVGztFi_ZH9yQwTYDqGOYDXMCkN_fnAF');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Efek Parallax */
+}
+
+/* Glassmorphism Card */
+.glass-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Animations */
+.fade-up {
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Utility tambahan untuk Modal */
+#teacher-modal, #news-modal, #admin-modal {
+    transition: opacity 0.3s ease;
+}
 #teacher-modal.active {
     display: flex;
 }
 
-/* Animations */
-.fade-in {
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Custom Scrollbar untuk Daftar Arsip */
-.scrollbar-custom::-webkit-scrollbar {
-    width: 6px;
-}
-.scrollbar-custom::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-.scrollbar-custom::-webkit-scrollbar-thumb {
-    background: #A52A2A; /* Warna SD Merah */
-    border-radius: 10px;
-}
-.scrollbar-custom::-webkit-scrollbar-thumb:hover {
-    background: #800000;
+/* Line Clamp untuk berita */
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
