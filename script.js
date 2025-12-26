@@ -171,28 +171,55 @@ async function fetchNews() {
         allNewsData = await response.json();
         
         const featuredContainer = document.getElementById('news-featured');
-        const archiveContainer = document.getElementById('news-archive');
-        const previousSection = document.getElementById('previous-news-section');
+        const archiveList = document.getElementById('news-archive-list');
 
         if (!allNewsData || allNewsData.length === 0) {
             featuredContainer.innerHTML = "<p class='text-center col-span-full'>Belum ada informasi terbaru.</p>";
             return;
         }
 
-        // 1. Tampilkan 3 Berita Utama
+        // 1. Tampilkan 3 Berita Utama (Card Besar)
         const featured = allNewsData.slice(0, 3);
-        featuredContainer.innerHTML = featured.map((n, index) => renderNewsCard(n, index, false)).join('');
+        featuredContainer.innerHTML = featured.map((n, index) => renderNewsCard(n, index)).join('');
 
-        // 2. Tampilkan Berita Selebihnya (Arsip)
+        // 2. Siapkan List Arsip (Jika ada lebih dari 3 berita)
         if (allNewsData.length > 3) {
-            previousSection.classList.remove('hidden');
             const archive = allNewsData.slice(3);
-            archiveContainer.innerHTML = archive.map((n, index) => renderNewsCard(n, index + 3, true)).join('');
+            archiveList.innerHTML = archive.map((n, index) => {
+                // index + 3 karena kita mulai dari data ke-4 di allNewsData
+                return `
+                <div onclick="openNewsModal(${index + 3})" class="py-4 flex items-center justify-between group cursor-pointer hover:bg-white px-4 rounded-xl transition-all">
+                    <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-6">
+                        <span class="text-xs font-bold text-gray-400 w-32 uppercase">${n.date}</span>
+                        <h4 class="font-semibold text-gray-700 group-hover:text-sd-red transition-colors">${n.title}</h4>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 group-hover:text-sd-red"></i>
+                </div>`;
+            }).join('');
+            lucide.createIcons();
+        } else {
+            document.getElementById('btn-archive').classList.add('hidden');
         }
     } catch (e) {
         console.error("Gagal memuat berita:", e);
     }
 }
+
+// Fungsi untuk Sembunyi/Tampilkan Arsip
+window.toggleArchive = function() {
+    const section = document.getElementById('previous-news-section');
+    const btn = document.getElementById('btn-archive');
+    
+    if (section.classList.contains('hidden')) {
+        section.classList.remove('hidden');
+        section.classList.add('fade-in');
+        btn.innerHTML = `<i data-lucide="chevron-up"></i> Tutup Informasi Sebelumnya`;
+    } else {
+        section.classList.add('hidden');
+        btn.innerHTML = `<i data-lucide="list"></i> Lihat Informasi Sebelumnya`;
+    }
+    lucide.createIcons();
+};
 
 // Fungsi Helper untuk Render Card
 function renderNewsCard(n, index, isArchive) {
