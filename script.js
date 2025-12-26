@@ -159,3 +159,73 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+const SCRIPT_URL = "URL_APPS_SCRIPT_ANDA_DI_SINI";
+
+// Fungsi Load Berita Otomatis saat Halaman Dibuka
+async function fetchNews() {
+    try {
+        const response = await fetch(`${SCRIPT_URL}?action=getNews`);
+        const data = await response.json();
+        const container = document.getElementById('news-container');
+        
+        if(data.length === 0) {
+            container.innerHTML = "<p class='text-center col-span-full'>Belum ada informasi terbaru.</p>";
+            return;
+        }
+
+        container.innerHTML = data.map(n => `
+            <div class="bg-gray-50 rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                <img src="${n.img || 'https://via.placeholder.com/400x250'}" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <span class="text-xs text-sd-red font-bold uppercase">${n.date}</span>
+                    <h4 class="font-bold text-lg mt-1 mb-2">${n.title}</h4>
+                    <p class="text-gray-600 text-sm line-clamp-3">${n.content}</p>
+                </div>
+            </div>
+        `).join('');
+    } catch (e) {
+        console.log("Gagal memuat berita");
+    }
+}
+
+// Panggil fungsi saat load
+fetchNews();
+
+// Logika Admin
+function showLogin() { document.getElementById('admin-modal').classList.remove('hidden'); document.getElementById('admin-modal').classList.add('flex'); }
+function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); }
+
+async function attemptLogin() {
+    const pass = document.getElementById('admin-pass').value;
+    const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'login', password: pass })
+    });
+    const result = await res.json();
+    if (result.status === 'success') {
+        document.getElementById('admin-panel').classList.remove('hidden');
+        closeAdminModal();
+    } else {
+        alert("Sandi Salah!");
+    }
+}
+
+// Tambah Berita Baru via Admin Panel
+document.getElementById('add-news-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.disabled = true;
+    btn.innerText = "Mengirim...";
+
+    const payload = {
+        action: 'addNews',
+        title: document.getElementById('news-title').value,
+        content: document.getElementById('news-content').value,
+        img: document.getElementById('news-img').value
+    };
+
+    await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
+    alert("Berita Berhasil Ditambahkan!");
+    location.reload(); // Segarkan halaman untuk melihat hasil
+});
