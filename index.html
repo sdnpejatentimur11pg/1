@@ -56,11 +56,31 @@
                 <h2 class="text-3xl font-bold">Informasi Terkini</h2>
                 <div class="w-20 h-1 bg-sd-red mx-auto mt-4"></div>
             </div>
-            <div id="news-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <p class="text-center col-span-full text-gray-400">Memuat informasi terbaru...</p>
+            
+            <div id="news-featured" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <p class="text-center col-span-full text-gray-400 italic">Memuat informasi terbaru...</p>
+            </div>
+    
+            <div id="previous-news-section" class="hidden">
+                <h3 class="text-2xl font-bold mb-8 border-l-4 border-sd-red pl-4">Informasi Sebelumnya</h3>
+                <div id="news-archive" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    </div>
             </div>
         </div>
     </section>
+    
+    <div id="news-modal" class="fixed inset-0 z-[150] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeNewsModal()"></div>
+        <div class="relative bg-white w-full max-w-2xl max-h-[85vh] rounded-3xl overflow-hidden flex flex-col shadow-2xl">
+            <div id="modal-news-img" class="h-64 w-full bg-cover bg-center"></div>
+            <div class="p-8 overflow-y-auto modal-scroll">
+                <span id="modal-news-date" class="text-sd-red font-bold text-sm uppercase tracking-widest"></span>
+                <h3 id="modal-news-title" class="text-2xl font-bold mt-2 mb-4"></h3>
+                <div id="modal-news-content" class="text-gray-600 leading-relaxed space-y-4"></div>
+                <button onclick="closeNewsModal()" class="mt-8 w-full bg-gray-100 hover:bg-gray-200 py-3 rounded-xl font-bold transition-colors">Tutup</button>
+            </div>
+        </div>
+    </div>
     
     <section id="profil" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
