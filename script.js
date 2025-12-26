@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-const SCRIPT_URL = "URL_APPS_SCRIPT_ANDA_DI_SINI";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBSUvf1e6Wg130hRsf7PMN9cod-L24xXA7NsBVputF3DPJB6p0lp9b8OJ94VGzvjEwEg/exec";
 
 // Fungsi Load Berita Otomatis saat Halaman Dibuka
 async function fetchNews() {
