@@ -163,33 +163,78 @@ document.addEventListener('DOMContentLoaded', () => {
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBSUvf1e6Wg130hRsf7PMN9cod-L24xXA7NsBVputF3DPJB6p0lp9b8OJ94VGzvjEwEg/exec";
 
 // Fungsi Load Berita Otomatis saat Halaman Dibuka
+let allNewsData = []; // Simpan data global untuk modal
+
 async function fetchNews() {
     try {
         const response = await fetch(`${SCRIPT_URL}?action=getNews`);
-        const data = await response.json();
-        const container = document.getElementById('news-container');
+        allNewsData = await response.json();
         
-        if(data.length === 0) {
-            container.innerHTML = "<p class='text-center col-span-full'>Belum ada informasi terbaru.</p>";
+        const featuredContainer = document.getElementById('news-featured');
+        const archiveContainer = document.getElementById('news-archive');
+        const previousSection = document.getElementById('previous-news-section');
+
+        if (!allNewsData || allNewsData.length === 0) {
+            featuredContainer.innerHTML = "<p class='text-center col-span-full'>Belum ada informasi terbaru.</p>";
             return;
         }
 
-        container.innerHTML = data.map(n => `
-            <div class="bg-gray-50 rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <img src="${n.img || 'https://via.placeholder.com/400x250'}" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <span class="text-xs text-sd-red font-bold uppercase">${n.date}</span>
-                    <h4 class="font-bold text-lg mt-1 mb-2">${n.title}</h4>
-                    <p class="text-gray-600 text-sm line-clamp-3">${n.content}</p>
-                </div>
-            </div>
-        `).join('');
+        // 1. Tampilkan 3 Berita Utama
+        const featured = allNewsData.slice(0, 3);
+        featuredContainer.innerHTML = featured.map((n, index) => renderNewsCard(n, index, false)).join('');
+
+        // 2. Tampilkan Berita Selebihnya (Arsip)
+        if (allNewsData.length > 3) {
+            previousSection.classList.remove('hidden');
+            const archive = allNewsData.slice(3);
+            archiveContainer.innerHTML = archive.map((n, index) => renderNewsCard(n, index + 3, true)).join('');
+        }
     } catch (e) {
-        console.log("Gagal memuat berita");
+        console.error("Gagal memuat berita:", e);
     }
 }
 
-// Panggil fungsi saat load
+// Fungsi Helper untuk Render Card
+function renderNewsCard(n, index, isArchive) {
+    // Gunakan class 'line-clamp-3' untuk memotong teks secara otomatis dengan titik-titik
+    return `
+        <div class="bg-gray-50 rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full">
+            <img src="${n.img || 'https://via.placeholder.com/400x250'}" class="w-full h-48 object-cover">
+            <div class="p-6 flex-grow flex flex-col">
+                <span class="text-xs text-sd-red font-bold uppercase">${n.date}</span>
+                <h4 class="font-bold text-lg mt-1 mb-2">${n.title}</h4>
+                <p class="text-gray-600 text-sm line-clamp-3 mb-4">${n.content}</p>
+                <div class="mt-auto">
+                    <button onclick="openNewsModal(${index})" class="text-sd-red font-bold text-sm hover:underline flex items-center gap-1">
+                        Baca Selengkapnya <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </div>`;
+}
+
+// Logika Modal Berita
+window.openNewsModal = function(index) {
+    const news = allNewsData[index];
+    const modal = document.getElementById('news-modal');
+    
+    document.getElementById('modal-news-img').style.backgroundImage = `url('${news.img || 'https://via.placeholder.com/400x250'}')`;
+    document.getElementById('modal-news-date').innerText = news.date;
+    document.getElementById('modal-news-title').innerText = news.title;
+    document.getElementById('modal-news-content').innerHTML = news.content.replace(/\n/g, '<br>');
+    
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    lucide.createIcons();
+};
+
+window.closeNewsModal = function() {
+    document.getElementById('news-modal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+};
+
+// Panggil saat aplikasi siap
 fetchNews();
 
 // Logika Admin
