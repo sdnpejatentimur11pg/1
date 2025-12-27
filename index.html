@@ -14,40 +14,42 @@
 </head>
 <body class="antialiased font-sans text-slate-800 bg-white">
 
-    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100" id="navbar">
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-sd-red/95 backdrop-blur-md shadow-lg border-b border-white/10" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 <a href="#" class="flex items-center gap-3 group">
-                    <div class="w-12 h-12 relative transition-transform group-hover:scale-105">
-                        <img src="https://lh3.googleusercontent.com/d/1c8Aj59FsU76R5nx_sQm1g6lHYu9-HpsP" alt="Logo" class="w-full h-full object-contain drop-shadow-md" onerror="this.src='https://ui-avatars.com/api/?name=SD+11&background=DC2626&color=fff'">
+                    <div class="w-12 h-12 relative p-1 bg-white rounded-full shadow-md transition-transform group-hover:scale-105">
+                        <img src="https://lh3.googleusercontent.com/d/1c8Aj59FsU76R5nx_sQm1g6lHYu9-HpsP" alt="Logo" class="w-full h-full object-contain" onerror="this.src='https://ui-avatars.com/api/?name=SD+11&background=DC2626&color=fff'">
                     </div>
                     <div class="flex flex-col">
-                        <h1 class="font-bold text-lg md:text-xl leading-none text-gray-900 group-hover:text-sd-red transition-colors">SDN PEJATEN TIMUR 11</h1>
-                        <span class="text-[10px] md:text-xs text-gray-500 font-semibold tracking-widest uppercase mt-1">Jakarta Selatan</span>
+                        <h1 class="font-bold text-lg md:text-xl leading-none text-white tracking-tight">SDN PEJATEN TIMUR 11</h1>
+                        <span class="text-[10px] md:text-xs text-white/90 font-medium tracking-widest uppercase mt-1">Jakarta Selatan</span>
                     </div>
                 </a>
                 
-                <div class="hidden md:flex items-center space-x-1 bg-gray-50 p-1 rounded-full border border-gray-200">
-                    <a href="#beranda" class="px-5 py-2 rounded-full text-sm font-semibold text-gray-600 hover:text-white hover:bg-sd-red transition-all">Beranda</a>
-                    <a href="#profil" class="px-5 py-2 rounded-full text-sm font-semibold text-gray-600 hover:text-white hover:bg-sd-red transition-all">Profil</a>
-                    <a href="#informasi" class="px-5 py-2 rounded-full text-sm font-semibold text-gray-600 hover:text-white hover:bg-sd-red transition-all">Info</a>
-                    <a href="#pendidik" class="px-5 py-2 rounded-full text-sm font-semibold text-gray-600 hover:text-white hover:bg-sd-red transition-all">Guru</a>
-                    <a href="#kontak" class="px-5 py-2 rounded-full text-sm font-semibold text-gray-600 hover:text-white hover:bg-sd-red transition-all">Kontak</a>
+                <div class="hidden md:flex items-center space-x-1 bg-black/10 p-1 rounded-full border border-white/10">
+                    <a href="#beranda" class="px-5 py-2 rounded-full text-sm font-semibold text-white hover:bg-white hover:text-sd-red transition-all">Beranda</a>
+                    <a href="#profil" class="px-5 py-2 rounded-full text-sm font-semibold text-white hover:bg-white hover:text-sd-red transition-all">Profil</a>
+                    <a href="#informasi" class="px-5 py-2 rounded-full text-sm font-semibold text-white hover:bg-white hover:text-sd-red transition-all">Info</a>
+                    <a href="#pendidik" class="px-5 py-2 rounded-full text-sm font-semibold text-white hover:bg-white hover:text-sd-red transition-all">Guru</a>
+                    <a href="#prestasi" class="px-5 py-2 rounded-full text-sm font-semibold text-white hover:bg-white hover:text-sd-red transition-all">Prestasi</a>
+                    <a href="#kontak" class="px-5 py-2 rounded-full text-sm font-semibold text-white hover:bg-white hover:text-sd-red transition-all">Kontak</a>
                 </div>
 
-                <button class="md:hidden p-2 text-gray-600 hover:text-sd-red hover:bg-sd-light rounded-lg transition-colors" id="mobile-menu-btn">
+                <button class="md:hidden p-2 text-white hover:bg-white/20 rounded-lg transition-colors" id="mobile-menu-btn">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
             </div>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0 shadow-lg">
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0 shadow-xl rounded-b-3xl">
             <div class="px-4 py-4 space-y-2">
-                <a href="#beranda" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 hover:bg-sd-light hover:text-sd-red">Beranda</a>
-                <a href="#profil" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 hover:bg-sd-light hover:text-sd-red">Profil</a>
-                <a href="#informasi" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 hover:bg-sd-light hover:text-sd-red">Informasi</a>
-                <a href="#pendidik" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 hover:bg-sd-light hover:text-sd-red">Guru & Staff</a>
-                <a href="#kontak" class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 hover:bg-sd-light hover:text-sd-red">Hubungi Kami</a>
+                <a href="#beranda" class="block px-4 py-3 rounded-xl text-base font-bold text-gray-700 hover:bg-sd-light hover:text-sd-red">Beranda</a>
+                <a href="#profil" class="block px-4 py-3 rounded-xl text-base font-bold text-gray-700 hover:bg-sd-light hover:text-sd-red">Profil</a>
+                <a href="#informasi" class="block px-4 py-3 rounded-xl text-base font-bold text-gray-700 hover:bg-sd-light hover:text-sd-red">Informasi</a>
+                <a href="#pendidik" class="block px-4 py-3 rounded-xl text-base font-bold text-gray-700 hover:bg-sd-light hover:text-sd-red">Guru & Staff</a>
+                <a href="#prestasi" class="block px-4 py-3 rounded-xl text-base font-bold text-gray-700 hover:bg-sd-light hover:text-sd-red">Prestasi</a>
+                <a href="#kontak" class="block px-4 py-3 rounded-xl text-base font-bold text-gray-700 hover:bg-sd-light hover:text-sd-red">Hubungi Kami</a>
             </div>
         </div>
     </nav>
@@ -228,7 +230,7 @@
                 <span class="text-sd-red font-bold tracking-widest uppercase text-sm flex items-center gap-2 justify-center md:justify-start">
                     <i data-lucide="trophy" class="w-4 h-4"></i> Hall of Fame
                 </span>
-                <h2 class="text-3xl md:text-4xl font-bold mt-2 text-gray-900">Prestasi Siswa <span class="text-sd-red">Non-Akademik</span></h2>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 text-gray-900">Prestasi <span class="text-sd-red">Murid</span></h2>
                 <div class="w-20 h-1.5 bg-sd-red mt-4 rounded-full mx-auto md:mx-0"></div>
             </div>
 
