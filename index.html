@@ -222,6 +222,45 @@
         </div>
     </section>
 
+    <section id="prestasi" class="py-24 bg-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-sd-red/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-yellow-400/10 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center md:text-left mb-12">
+                <span class="text-sd-red font-bold tracking-widest uppercase text-sm flex items-center gap-2 justify-center md:justify-start">
+                    <i data-lucide="trophy" class="w-4 h-4"></i> Hall of Fame
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 text-gray-900">Prestasi Siswa <span class="text-sd-red">Non-Akademik</span></h2>
+                <div class="w-20 h-1.5 bg-sd-red mt-4 rounded-full mx-auto md:mx-0"></div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-10 items-start">
+                
+                <div id="prestasi-highlight">
+                    <div class="bg-gray-200 rounded-[2.5rem] h-[500px] animate-pulse"></div>
+                </div>
+
+                <div class="flex flex-col gap-6">
+                    <div id="prestasi-list" class="flex flex-col gap-6">
+                        <div class="bg-gray-100 h-24 rounded-3xl animate-pulse"></div>
+                        <div class="bg-gray-100 h-24 rounded-3xl animate-pulse"></div>
+                    </div>
+
+                    <div id="btn-prestasi-container" class="mt-4 hidden">
+                         <button onclick="togglePrestasiArchive()" id="btn-prestasi-more" class="w-full group bg-white border-2 border-sd-red text-sd-red hover:bg-sd-red hover:text-white px-6 py-4 rounded-xl font-bold transition-all shadow-sm flex justify-center items-center gap-2">
+                            <span>Lihat Prestasi Lainnya</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="prestasi-archive" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 pt-12 border-t border-gray-100 fade-in">
+                </div>
+        </div>
+    </section>
+
     <section id="fasilitas" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12">
