@@ -1,3 +1,19 @@
+// --- FUNGSI FORMATTER GLOBAL (Bisa dipakai Berita & Prestasi) ---
+function formatText(text) {
+    if (!text) return "";
+    
+    // 1. Ubah Baris Baru (Enter) menjadi <br>
+    let formatted = text.replace(/\n/g, '<br>');
+
+    // 2. Ubah *teks* menjadi Bold (Tebal)
+    formatted = formatted.replace(/\*(.*?)\*/g, '<b class="text-gray-900">$1</b>');
+
+    // 3. Ubah _teks_ menjadi Italic (Miring Merah)
+    formatted = formatted.replace(/_(.*?)_/g, '<i class="text-sd-red">$1</i>');
+
+    return formatted;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     
     // 1. Inisialisasi Icons
@@ -198,6 +214,8 @@ async function fetchNews() {
             return;
         }
 
+        // Di dalam fetchNews()...
+        
         // 3 Berita Utama
         const featured = allNewsData.slice(0, 3);
         featuredContainer.innerHTML = featured.map((n, index) => `
@@ -209,7 +227,11 @@ async function fetchNews() {
                 </div>
                 <div class="p-6 flex-grow flex flex-col">
                     <h4 class="font-bold text-lg text-gray-900 mb-3 group-hover:text-sd-red transition-colors line-clamp-2">${n.title}</h4>
-                    <p class="text-gray-500 text-sm line-clamp-3 mb-4 flex-grow">${n.content}</p>
+                    
+                    <div class="text-gray-500 text-sm line-clamp-3 mb-4 flex-grow">
+                        ${formatText(n.content)}
+                    </div>
+                    
                     <div class="pt-4 border-t border-gray-50 flex items-center text-sd-red text-sm font-bold">
                         Baca Selengkapnya <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </div>
@@ -255,7 +277,11 @@ window.openNewsModal = function(index) {
     document.getElementById('modal-news-img').style.backgroundImage = `url('${news.img || 'https://via.placeholder.com/400x250'}')`;
     document.getElementById('modal-news-date').innerText = news.date;
     document.getElementById('modal-news-title').innerText = news.title;
-    document.getElementById('modal-news-content').innerHTML = news.content.replace(/\n/g, '<br>');
+    
+    // --- UPDATE DI SINI ---
+    // Hapus kode lama: .innerHTML = news.content.replace(/\n/g, '<br>');
+    // Ganti dengan:
+    document.getElementById('modal-news-content').innerHTML = formatText(news.content);
     
     modal.classList.remove('hidden');
     modal.classList.add('flex');
@@ -333,7 +359,118 @@ document.getElementById('add-news-form')?.addEventListener('submit', async (e) =
 // Start
 fetchNews();
 
-// Tambahkan di bagian paling bawah script.js atau di dalam document.addEventListener
+// --- LOGIKA PRESTASI DINAMIS ---
+let allPrestasiData = [];
+
+async function fetchPrestasi() {
+    const highlightContainer = document.getElementById('prestasi-highlight');
+    const listContainer = document.getElementById('prestasi-list');
+    const archiveContainer = document.getElementById('prestasi-archive');
+    const btnContainer = document.getElementById('btn-prestasi-container');
+    
+    try {
+        const response = await fetch(`${SCRIPT_URL}?action=getAchievements`);
+        allPrestasiData = await response.json();
+
+        // Kosongkan container (hapus skeleton loading)
+        highlightContainer.innerHTML = '';
+        listContainer.innerHTML = '';
+
+        if (!allPrestasiData || allPrestasiData.length === 0) {
+            highlightContainer.innerHTML = '<div class="p-10 bg-gray-50 rounded-3xl text-center">Belum ada data prestasi.</div>';
+            return;
+        }
+
+        // 1. RENDER HIGHLIGHT (Data Pertama)
+        const main = allPrestasiData[0];
+        highlightContainer.innerHTML = `
+            <div class="group relative rounded-[2.5rem] overflow-hidden shadow-2xl h-[500px] cursor-pointer hover:-translate-y-2 transition-transform duration-500">
+                <img src="${main.img || 'https://via.placeholder.com/600x800'}" 
+                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-8 md:p-10">
+                    <div class="bg-yellow-500 text-black font-extrabold text-[10px] px-3 py-1 rounded-full uppercase tracking-wider w-fit mb-4 flex items-center gap-1">
+                        <i data-lucide="crown" class="w-3 h-3"></i> ${main.category}
+                    </div>
+                    <h3 class="text-white text-2xl md:text-3xl font-bold mb-2 leading-tight">${main.title}</h3>
+                    
+                    <div class="text-gray-300 line-clamp-3 mb-6 text-sm md:text-base leading-relaxed">
+                        ${formatText(main.desc)}
+                    </div>
+
+                    <div class="text-white font-bold text-xs border-b border-yellow-500 w-fit pb-1">
+                        ${main.date}
+                    </div>
+                </div>
+            </div>`;
+
+        // 2. RENDER LIST SAMPING
+        const sideList = allPrestasiData.slice(1, 3);
+        sideList.forEach(item => {
+            listContainer.innerHTML += `
+            <div class="bg-gray-50 p-4 rounded-3xl border border-gray-100 flex items-center gap-4 hover:bg-white hover:shadow-lg hover:border-sd-red/20 transition-all cursor-pointer group">
+                <div class="w-20 h-20 flex-none rounded-2xl overflow-hidden relative shadow-sm">
+                    <img src="${item.img || 'https://via.placeholder.com/200'}" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                </div>
+                <div>
+                    <span class="text-sd-red font-bold text-[10px] uppercase tracking-wide bg-sd-red/10 px-2 py-0.5 rounded-md mb-1 inline-block">${item.category}</span>
+                    <h4 class="font-bold text-base text-gray-900 group-hover:text-sd-red transition-colors line-clamp-1">${item.title}</h4>
+                    
+                    <div class="text-xs text-gray-500 mt-1 line-clamp-2">
+                        ${formatText(item.desc)}
+                    </div>
+                </div>
+            </div>`;
+        });
+
+        // 3. RENDER ARSIP (Jika ada)
+        if (allPrestasiData.length > 3) {
+            // ... kode tombol ...
+            const archiveList = allPrestasiData.slice(3);
+            archiveList.forEach(item => {
+                archiveContainer.innerHTML += `
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all group">
+                    <div class="h-40 rounded-2xl overflow-hidden mb-4 relative">
+                        <div class="absolute top-2 right-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-xs font-bold shadow-sm">${item.date}</div>
+                        <img src="${item.img || 'https://via.placeholder.com/400'}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <span class="text-sd-red font-bold text-xs uppercase">${item.category}</span>
+                    <h4 class="font-bold text-lg mt-1 mb-2 group-hover:text-sd-red transition-colors">${item.title}</h4>
+                    
+                    <div class="text-gray-500 text-sm line-clamp-3">
+                        ${formatText(item.desc)}
+                    </div>
+                </div>`;
+            });
+        }
+
+        lucide.createIcons();
+    } catch (e) {
+        console.error("Gagal load prestasi:", e);
+    }
+}
+
+// Fungsi Toggle Tombol "Lihat Lainnya"
+window.togglePrestasiArchive = function() {
+    const archive = document.getElementById('prestasi-archive');
+    const btnText = document.querySelector('#btn-prestasi-more span');
+    const icon = document.querySelector('#btn-prestasi-more i');
+
+    if (archive.classList.contains('hidden')) {
+        archive.classList.remove('hidden');
+        btnText.innerText = "Tutup Prestasi Lainnya";
+        icon.setAttribute('data-lucide', 'chevron-up');
+    } else {
+        archive.classList.add('hidden');
+        btnText.innerText = "Lihat Prestasi Lainnya";
+        icon.setAttribute('data-lucide', 'chevron-down');
+        // Scroll kembali ke atas section prestasi agar rapi
+        document.getElementById('prestasi').scrollIntoView({behavior: 'smooth'});
+    }
+    lucide.createIcons();
+};
+
+// Panggil fungsi saat load
+fetchPrestasi();
 
 async function updateVisitorCount() {
     const counterElement = document.getElementById('visitor-count');
