@@ -332,3 +332,27 @@ document.getElementById('add-news-form')?.addEventListener('submit', async (e) =
 
 // Start
 fetchNews();
+
+// Tambahkan di bagian paling bawah script.js atau di dalam document.addEventListener
+
+async function updateVisitorCount() {
+    const counterElement = document.getElementById('visitor-count');
+    if(!counterElement) return;
+
+    try {
+        // Panggil script dengan action trackVisit
+        const response = await fetch(`${SCRIPT_URL}?action=trackVisit`);
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            // Format angka (contoh: 1.200)
+            counterElement.innerText = new Intl.NumberFormat('id-ID').format(data.count);
+        }
+    } catch (e) {
+        console.error("Gagal memuat statistik", e);
+        counterElement.innerText = "-";
+    }
+}
+
+// Panggil fungsi ini saat halaman dimuat
+updateVisitorCount();
