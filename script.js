@@ -44,18 +44,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Navbar Scroll Effect
+    // 3. Navbar Scroll Effect (Updated untuk Navbar Merah)
     window.addEventListener('scroll', () => {
         const nav = document.getElementById('navbar');
         if (window.scrollY > 50) {
-            nav.classList.add('shadow-md', 'bg-white/95');
-            nav.classList.remove('bg-white/90');
+            // Saat discroll: Tambah bayangan, warna merah sedikit lebih solid
+            nav.classList.add('shadow-lg', 'bg-sd-red'); 
+            nav.classList.remove('bg-sd-red/95', 'shadow-md');
         } else {
-            nav.classList.remove('shadow-md', 'bg-white/95');
-            nav.classList.add('bg-white/90');
+            // Saat di atas: Kembali ke merah transparan
+            nav.classList.remove('shadow-lg', 'bg-sd-red');
+            nav.classList.add('bg-sd-red/95', 'shadow-md');
         }
     });
-
+    
     // 4. Data Guru
     const allTeachers = [
         // Guru Kelas
