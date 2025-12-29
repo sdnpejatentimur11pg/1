@@ -58,77 +58,105 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // 4. Data Guru
-    const allTeachers = [
-        // Guru Kelas
-        { name: "Cicik Mulki Ijati, S.Pd.", role: "Guru Kelas 1A", type: "teacher", img: "https://lh3.googleusercontent.com/d/110uFs58y3lwVdsYaKlqgCpPNG6TCn-OM" },
-        { name: "Dewi Iriani, S.Pd.", role: "Guru Kelas 1B", type: "teacher", img: "https://lh3.googleusercontent.com/d/1hxV4g803gXEWNi8LvDxdlynWTkWf9b1V" },
-        { name: "Nofiah Diana, S.Pd.", role: "Guru Kelas 1C", type: "teacher", img: "https://lh3.googleusercontent.com/d/1GcCrzR2gT47_mhbACJouemI5sIL3banx" },
-        { name: "Nur Fadilah, S.Pd.", role: "Guru Kelas 2A", type: "teacher", img: "https://lh3.googleusercontent.com/d/14nbCm4cqr8bNZ8nAroGLFmK2y1VIUjTD" },
-        { name: "Fiqra Haninditha", role: "Guru Kelas 2B", type: "teacher", img: "https://lh3.googleusercontent.com/d/1WlQr4pwxw76s97j0eg6TyF3u6LIH_7VI" },
-        { name: "Wuri Utami, S.Pd.", role: "Guru Kelas 3A", type: "teacher", img: "https://lh3.googleusercontent.com/d/1E9q9sKR3v8rl2f9y5Lxb3n90naWKNBSH" },
-        { name: "Nurul Maghfirah, S.Pd.", role: "Guru Kelas 3B", type: "teacher", img: "https://ui-avatars.com/api/?name=Nurul+Maghfirah&background=fecaca&color=A52A2A" },
-        { name: "Rosari Indah, S.Pd.", role: "Guru Kelas 3C", type: "teacher", img: "https://lh3.googleusercontent.com/d/1khxu5hmEuplCxQ8Q2NAXTTwZK0y9kLQ6" },
-        { name: "Raida, S.Pd.", role: "Guru Kelas 4A", type: "teacher", img: "https://lh3.googleusercontent.com/d/1FnKxAvGz4vABRI139LNv4mTn7_ScycOu" },
-        { name: "Siti Nurasiah, S.Pd.", role: "Guru Kelas 4B", type: "teacher", img: "https://lh3.googleusercontent.com/d/1rAaPFvD32VMBS3U7KoBYscW244hm9SzI" },
-        { name: "Tuti Rohita, S.Pd.", role: "Guru Kelas 4C", type: "teacher", img: "https://lh3.googleusercontent.com/d/1yUkBDg1jcNPX-DOj_aNvFri1LAn3Cvs_" },
-        { name: "Waryanti, S.Pd.", role: "Guru Kelas 5A", type: "teacher", img: "https://lh3.googleusercontent.com/d/1Urwli-zxecgLKF25BxkfDlz8iZxB2zJV" },
-        { name: "Listia Ningsih, S.Pd.", role: "Guru Kelas 5B", type: "teacher", img: "https://lh3.googleusercontent.com/d/1Ztuc89l1w0c9E0WIp3TvLeoluGHE-3RF" },
-        { name: "Faniyyatu Syifail Qolby, S.Pd.", role: "Guru Kelas 5C", type: "teacher", img: "https://ui-avatars.com/api/?name=Faniyyatu+Syifail+Qolby&background=fecaca&color=A52A2A" },
-        { name: "Amri Nasrulloh, S.Pd.", role: "Guru Kelas 6A", type: "teacher", img: "https://lh3.googleusercontent.com/d/1_eD4krfAy5Vi0tItAZPUofHkIQvte3Ml" },
-        { name: "Banjar Amrullah, S.Pd.", role: "Guru Kelas 6B", type: "teacher", img: "https://lh3.googleusercontent.com/d/1aXUDyoX9wCNZao8uErnJUN_Xkz5o39Qv" },
-        { name: "Shabrina Awanis, S.Pd.", role: "Guru Kelas 6C", type: "teacher", img: "https://lh3.googleusercontent.com/d/1wuyp26XfeBUhLGRVFXoO8TGJhjoXEz6S" },
-        { name: "Didik Rahmadi, S.Pd.", role: "Guru Kelas 6D", type: "teacher", img: "https://lh3.googleusercontent.com/d/10c79L5Mtm4n15AdxhDISsqF3UQA2v7Sg" },
-        // Guru Mata Pelajaran
-        { name: "M. Sahari, S.Pd.I.", role: "Guru PAI", type: "subject", img: "https://lh3.googleusercontent.com/d/1-KFdAlFVBH58mQbRzkaBeDDyYCRZv3Vp" },
-        { name: "Maimunah, S.Pd.I.", role: "Guru PAI", type: "subject", img: "https://lh3.googleusercontent.com/d/1J1itUg0pbdTmdR-qPuizp-kcwotnHVWd" },
-        { name: "M. Gilang G., S.Pd.", role: "Guru Olahraga", type: "subject", img: "https://lh3.googleusercontent.com/d/1cuW7NfceUF9UiNPqm7RpYQLitUaf_MH5" },
-        { name: "Iis Yudiani", role: "Guru Olahraga", type: "subject", img: "https://ui-avatars.com/api/?name=Iis+Yudiani&background=fecaca&color=A52A2A" },
-        // Staff
-        { name: "M. Dary Ammar", role: "Operator", type: "staff", img: "https://lh3.googleusercontent.com/d/1lG13UjQhtM5AQamrBwkftcGS_InrUv3u" },
-        { name: "Kamil", role: "Penjaga Sekolah", type: "staff", img: "https://lh3.googleusercontent.com/d/19DgOWtpM8TqEH7lVe_2905jIWI1kdNbk" },
-        { name: "Supriyanto", role: "Penjaga Sekolah", type: "staff", img: "https://lh3.googleusercontent.com/d/1WkQvZO2ijrdrUZqJojZY_0_ykiBzRHcO" },
-        { name: "M. Fitrah", role: "Penjaga Sekolah", type: "staff", img: "https://lh3.googleusercontent.com/d/1OQkgOY0FhN3oQGiAEdwZSfGUA6RXMIqI" }
-    ];
+    // 4. Data Guru (DINAMIS DARI SPREADSHEET)
+    let allTeachers = []; // Variabel kosong, nanti diisi oleh fetch
 
-    // 5. Render Guru Berputar
+    async function fetchTeachers() {
+        const container = document.getElementById('rotating-teachers');
+        
+        // Tampilkan loading sementara
+        if(container) {
+            container.innerHTML = '<div class="col-span-full text-center py-10"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-sd-red mx-auto"></div><p class="mt-2 text-gray-500">Memuat Data Guru...</p></div>';
+        }
+
+        try {
+            // Panggil API Google Script
+            const response = await fetch(`${SCRIPT_URL}?action=getTeachers`);
+            allTeachers = await response.json();
+
+            // Jika data berhasil diambil, jalankan fungsi render
+            if (allTeachers && allTeachers.length > 0) {
+                renderRotatingTeachers(); // Render awal
+                setInterval(renderRotatingTeachers, 5000); // Mulai rotasi
+            } else {
+                if(container) container.innerHTML = '<p class="text-center col-span-full">Data guru belum tersedia.</p>';
+            }
+        } catch (e) {
+            console.error("Gagal memuat data guru:", e);
+            if(container) container.innerHTML = '<p class="text-center col-span-full text-red-500">Gagal memuat data.</p>';
+        }
+    }
+
+    // 5. Render Guru Berputar (Dengan Animasi Soft ke Atas)
     function renderRotatingTeachers() {
         const container = document.getElementById('rotating-teachers');
-        if (!container) return;
-        
-        // Randomize
+        if (!container || allTeachers.length === 0) return;
+
+        // 1. ANIMASI KELUAR (Jika sudah ada isinya)
+        if (container.children.length > 0) {
+            // Tambahkan class agar kartu lama bergerak ke atas & menghilang
+            Array.from(container.children).forEach(card => {
+                card.classList.remove('enter-active'); // Hapus posisi normal
+                card.classList.add('exit-to-top');     // Gerakkan ke atas
+            });
+
+            // Tunggu 500ms (sesuai durasi CSS) baru ganti konten
+            setTimeout(() => {
+                injectNewTeachers(container);
+            }, 500); 
+        } else {
+            // Jika pertama kali load (kosong), langsung isi
+            injectNewTeachers(container);
+        }
+    }
+
+    // Fungsi Pembantu untuk Memasukkan HTML Baru
+    function injectNewTeachers(container) {
+        // Randomize Guru
         const shuffled = [...allTeachers].sort(() => 0.5 - Math.random());
         const selected = shuffled.slice(0, 3);
-        
+
         container.innerHTML = '';
-        selected.forEach((t, i) => {
-            // Style Card Baru
+        
+        selected.forEach((t) => {
+            // Perhatikan penambahan class: 'teacher-card' dan 'enter-from-bottom'
             container.innerHTML += `
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                <div class="teacher-card enter-from-bottom bg-white p-8 rounded-3xl shadow-sm border border-gray-100 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
                     <div class="w-28 h-28 mx-auto mb-6 rounded-full p-1 border-2 border-dashed border-gray-200 group-hover:border-sd-red transition-colors">
-                        <img src="${t.img}" class="w-full h-full rounded-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=${t.name}&background=fee2e2&color=dc2626'">
+                        <img src="${t.img || 'https://ui-avatars.com/api/?name=' + t.name}" class="w-full h-full rounded-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=${t.name}&background=fee2e2&color=dc2626'">
                     </div>
                     <h4 class="font-bold text-gray-900 text-lg group-hover:text-sd-red transition-colors">${t.name}</h4>
                     <p class="text-gray-500 text-sm font-semibold mt-1 uppercase tracking-wide">${t.role}</p>
                 </div>`;
         });
-    }
-    
-    // Jalankan pertama kali & Interval
-    renderRotatingTeachers();
-    setInterval(renderRotatingTeachers, 5000);
 
-    // 6. Modal Guru
+        // Trigger Reflow (Agar browser sadar ada elemen baru sebelum animasi dimulai)
+        void container.offsetWidth; 
+
+        // 2. ANIMASI MASUK (Gerakkan ke posisi normal)
+        Array.from(container.children).forEach(card => {
+            card.classList.remove('enter-from-bottom'); // Hapus posisi bawah
+            card.classList.add('enter-active');         // Masuk ke posisi normal
+        });
+        
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    // 6. Modal Guru (Logika Filter Tetap Sama)
     window.openModal = function() {
         const modal = document.getElementById('teacher-modal');
         const modalContent = document.getElementById('modal-content');
         if (!modal) return;
 
         modal.classList.remove('hidden');
-        modal.classList.add('flex'); // Pakai flex agar center
+        modal.classList.add('flex');
         document.body.style.overflow = 'hidden';
 
-        // Render Content
+        if (allTeachers.length === 0) {
+            modalContent.innerHTML = '<p class="text-center p-10">Sedang memuat data...</p>';
+            return;
+        }
+
         let html = '';
         
         const renderSection = (title, data) => {
@@ -137,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
             data.forEach(t => {
                 sectionHtml += `
                 <div class="bg-white border border-gray-100 p-4 rounded-xl flex items-center gap-4 hover:shadow-md transition-shadow">
-                    <img src="${t.img}" class="w-14 h-14 rounded-full object-cover bg-gray-100" onerror="this.src='https://ui-avatars.com/api/?name=${t.name}&background=random'">
+                    <img src="${t.img || 'https://ui-avatars.com/api/?name=' + t.name}" class="w-14 h-14 rounded-full object-cover bg-gray-100" onerror="this.src='https://ui-avatars.com/api/?name=${t.name}&background=random'">
                     <div>
                         <p class="font-bold text-gray-900 text-sm">${t.name}</p>
                         <p class="text-xs text-sd-red font-bold uppercase tracking-wider">${t.role}</p>
@@ -149,10 +177,12 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Guru Kelas 1-6
+        // NOTE: Pastikan di Excel menulis jabatannya mengandung kata "Kelas 1", "Kelas 2", dst.
         for (let i = 1; i <= 6; i++) {
             html += renderSection(`Guru Kelas ${i}`, allTeachers.filter(t => t.role.includes(`Kelas ${i}`)));
         }
-        // Mapel & Staff
+        
+        // Mapel & Staff (Filter berdasarkan kolom 'type' di Excel)
         html += renderSection('Guru Mata Pelajaran', allTeachers.filter(t => t.type === 'subject'));
         html += renderSection('Tenaga Kependidikan', allTeachers.filter(t => t.type === 'staff'));
 
@@ -165,37 +195,93 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'auto';
     };
 
-    // 7. Buku Tamu (Dummy)
+    // Panggil Fetch saat halaman dimuat
+    fetchTeachers();
+
+    // ==========================================
+    // 7. BUKU TAMU & PESAN (SISTEM MODERASI)
+    // ==========================================
+
+    // A. FETCH PESAN (Hanya yang status "Tampilkan")
+    async function fetchMessages() {
+        const container = document.getElementById('messages-display');
+        if (!container) return;
+
+        try {
+            const response = await fetch(`${SCRIPT_URL}?action=getMessages`);
+            const messages = await response.json();
+
+            container.innerHTML = '';
+
+            if (messages.length === 0) {
+                container.innerHTML = '<p class="text-white/60 text-sm italic">Belum ada ulasan baru.</p>';
+                return;
+            }
+
+            // Batasi hanya tampilkan 3 pesan terbaru agar tidak kepanjangan
+            const latestMessages = messages.slice(0, 3);
+
+            latestMessages.forEach(msg => {
+                container.innerHTML += `
+                <div class="bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm animate-[fadeIn_0.5s_ease-out]">
+                    <div class="flex justify-between items-start mb-1">
+                        <p class="font-bold text-sm text-white">${msg.name}</p>
+                        <span class="text-[10px] text-white/60">${msg.date}</span>
+                    </div>
+                    <p class="text-xs text-white/80 italic line-clamp-3">"${msg.message}"</p>
+                </div>`;
+            });
+
+        } catch (e) {
+            console.error("Gagal ambil pesan:", e);
+        }
+    }
+
+    // B. SUBMIT PESAN (Kirim ke Database)
     const guestbookForm = document.getElementById('guestbook-form');
-    const messagesDisplay = document.getElementById('messages-display');
-
     if (guestbookForm) {
-        guestbookForm.addEventListener('submit', (e) => {
+        guestbookForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
             const btn = e.target.querySelector('button');
-            const name = document.getElementById('visitor-name').value;
-            const msg = document.getElementById('visitor-message').value;
+            const originalText = btn.innerHTML;
+            const nameInput = document.getElementById('visitor-name');
+            const msgInput = document.getElementById('visitor-message');
 
+            // Ubah tombol jadi loading
             btn.disabled = true;
             btn.innerHTML = 'Mengirim...';
 
-            setTimeout(() => {
-                // Tampilkan dummy message
-                const newMsg = `
-                <div class="bg-white/10 p-4 rounded-xl border border-white/20 animate-pulse">
-                    <p class="font-bold text-sm text-white">${name}</p>
-                    <p class="text-xs text-white/80 italic line-clamp-2">"${msg}"</p>
-                </div>`;
-                if(messagesDisplay) messagesDisplay.insertAdjacentHTML('afterbegin', newMsg);
+            const payload = {
+                action: 'submitMessage',
+                name: nameInput.value,
+                message: msgInput.value
+            };
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+
+                // Reset Form
+                alert("Terima kasih! Pesan Anda telah terkirim");
+                guestbookForm.reset();
                 
-                alert("Pesan terkirim! Terima kasih.");
-                e.target.reset();
+            } catch (error) {
+                alert("Gagal mengirim pesan. Silakan coba lagi.");
+                console.error(error);
+            } finally {
+                // Kembalikan tombol
                 btn.disabled = false;
-                btn.innerHTML = '<span>Kirim Pesan</span><i data-lucide="send" class="w-4 h-4"></i>';
-                lucide.createIcons();
-            }, 1000);
+                btn.innerHTML = originalText;
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            }
         });
     }
+
+    // Panggil fetch pesan saat website dibuka
+    fetchMessages();
 });
 
 // --- GOOGLE APPS SCRIPT INTEGRATION ---
