@@ -64,3 +64,26 @@ body {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+/* Animasi Rotasi Guru */
+.teacher-card {
+    transition: all 0.5s ease-in-out;
+}
+
+/* Keadaan Awal (Masuk dari bawah) */
+.enter-from-bottom {
+    opacity: 0;
+    transform: translateY(50px); /* Mulai dari bawah */
+}
+
+/* Keadaan Akhir (Posisi Normal) */
+.enter-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Keadaan Keluar (Pergi ke atas) */
+.exit-to-top {
+    opacity: 0;
+    transform: translateY(-50px); /* Pergi ke atas */
+}
