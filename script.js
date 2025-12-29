@@ -259,17 +259,26 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             try {
-                await fetch(SCRIPT_URL, {
+                // PERUBAHAN UTAMA DI SINI (Header text/plain)
+                const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(payload),
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8" 
+                    }
                 });
 
-                // Reset Form
-                alert("Terima kasih! Pesan Anda telah terkirim");
-                guestbookForm.reset();
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    alert("Terima kasih! Pesan Anda telah terkirim dan menunggu moderasi admin.");
+                    guestbookForm.reset();
+                } else {
+                    throw new Error(result.message || "Gagal mengirim");
+                }
                 
             } catch (error) {
-                alert("Gagal mengirim pesan. Silakan coba lagi.");
+                alert("Gagal mengirim pesan: " + error.message);
                 console.error(error);
             } finally {
                 // Kembalikan tombol
@@ -393,30 +402,42 @@ window.closeAdminModal = function() {
     document.getElementById('admin-modal').classList.remove('flex'); 
 }
 
-window.attemptLogin = async function() {
+// Fungsi Login Admin
+async function attemptLogin() {
     const pass = document.getElementById('admin-pass').value;
     const btn = document.querySelector('#admin-modal button');
     
+    // Efek Loading
+    const originalText = btn.innerText;
     btn.innerText = "Memeriksa...";
     btn.disabled = true;
 
     try {
+        // PERUBAHAN UTAMA DI SINI (Header text/plain)
         const res = await fetch(SCRIPT_URL, {
             method: 'POST',
-            body: JSON.stringify({ action: 'login', password: pass })
+            body: JSON.stringify({ action: 'login', password: pass }),
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            }
         });
+        
         const result = await res.json();
         
         if (result.status === 'success') {
             document.getElementById('admin-panel').classList.remove('hidden');
             closeAdminModal();
+            // Kosongkan password field agar aman
+            document.getElementById('admin-pass').value = ''; 
         } else {
             alert("Kata sandi salah!");
         }
     } catch(e) {
-        alert("Terjadi kesalahan koneksi.");
+        console.error(e);
+        alert("Terjadi kesalahan koneksi. Coba lagi.");
     } finally {
-        btn.innerText = "Masuk Dashboard";
+        // Kembalikan tombol
+        btn.innerText = originalText;
         btn.disabled = false;
     }
 }
