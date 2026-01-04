@@ -110,6 +110,115 @@
         </div>
     </section>
     
+    <section id="info-mutasi" class="pt-24 pb-8 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-4 border-dashed border-sd-red/40 bg-sd-light/30 rounded-[2rem] overflow-hidden transition-all hover:border-sd-red hover:bg-sd-light/60">
+                
+                <button onclick="toggleMutasi()" class="w-full px-6 py-6 md:px-10 md:py-8 flex items-center justify-between text-left group">
+                    <div class="flex items-center gap-4 md:gap-6">
+                        <div class="bg-sd-red/10 text-sd-red p-3 md:p-4 rounded-full group-hover:bg-sd-red group-hover:text-white transition-colors">
+                            <i data-lucide="megaphone" class="w-6 h-6 md:w-8 md:h-8"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl md:text-3xl font-bold text-gray-900 leading-tight">
+                                INFORMASI PENTING <span class="text-sd-red">MUTASI MURID</span>
+                            </h3>
+                            <p class="text-gray-500 text-sm md:text-base mt-1">Klik untuk melihat detail jadwal dan persyaratan</p>
+                        </div>
+                    </div>
+                    <div id="mutasi-icon" class="bg-white border border-gray-200 p-2 rounded-full text-gray-400 transition-transform duration-300">
+                        <i data-lucide="chevron-down" class="w-6 h-6"></i>
+                    </div>
+                </button>
+
+                <div id="mutasi-content" class="hidden border-t border-dashed border-sd-red/20">
+                    <div class="p-6 md:p-10 space-y-6 text-gray-700 leading-relaxed">
+                        
+                        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                            <h4 class="font-bold text-lg text-gray-900 mb-2 text-center underline decoration-sd-red decoration-2 underline-offset-4">
+                                PENGUMUMAN MUTASI MASUK MURID SDN PEJATEN TIMUR 11 PAGI
+                            </h4>
+                            <p class="text-center mb-6">
+                                Diberitahukan kepada Orang Tua/Wali murid bahwa Mutasi Masuk murid SDN Pejaten Timur 11 Pagi dibuka pada:<br>
+                                <span class="font-bold text-sd-red text-lg">Tanggal 5 – 9 Januari 2026</span>
+                            </p>
+
+                            <p class="mb-4">Sehubungan dengan hal tersebut, calon peserta mutasi <b class="text-gray-900">WAJIB</b> mengikuti tahapan sebagai berikut:</p>
+                            
+                            <div class="space-y-4">
+                                <div class="flex gap-3">
+                                    <span class="font-bold text-sd-red">1.</span>
+                                    <p>Bergabung ke Grup WhatsApp Mutasi Siswa.</p>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="font-bold text-sd-red">2.</span>
+                                    <p>Mengisi Formulir Pendaftaran Mutasi Masuk.</p>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="font-bold text-sd-red">3.</span>
+                                    <p>Menunggu dan mengikuti informasi lanjutan yang akan disampaikan melalui Grup WhatsApp.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 p-6 rounded-2xl border border-yellow-200">
+                            <h5 class="font-bold text-yellow-800 flex items-center gap-2 mb-3">
+                                <i data-lucide="alert-circle" class="w-5 h-5"></i> Catatan Penting:
+                            </h5>
+                            <ul class="list-disc list-inside space-y-2 text-sm md:text-base text-gray-800">
+                                <li>Mutasi masuk hanya diperuntukkan bagi peserta didik <b class="bg-yellow-200 px-1 rounded">kelas 1 s.d. kelas 5</b>.</li>
+                                <li>Peserta didik yang dinyatakan diterima WAJIB mengikuti seluruh tahapan seleksi dan melengkapi BERKAS administrasi.</li>
+                                <li>Apabila terdapat perubahan informasi, akan segera diumumkan melalui Grup WhatsApp Mutasi.</li>
+                            </ul>
+                        </div>
+
+                        <p class="text-center italic text-gray-500">
+                            Demikian pengumuman ini disampaikan. Atas perhatian dan kerja samanya, kami ucapkan terima kasih.
+                        </p>
+
+                        <div class="grid md:grid-cols-2 gap-4 mt-8 pt-6 border-t border-gray-200">
+                            <a href="https://chat.whatsapp.com/Le21srz3UFpF2OMPgISCs2" 
+                            onclick="checkMutasiTime(event)"
+                            target="_blank"
+                            class="group flex items-center justify-center gap-3 py-4 px-6 rounded-xl bg-[#25D366] text-white font-bold hover:bg-[#20bd5a] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
+                                <i data-lucide="message-circle" class="w-6 h-6 fill-white"></i>
+                                <span>Gabung Grup WhatsApp</span>
+                            </a>
+
+                            <a href="https://forms.gle/BYFSBYk5N8useFKy6" 
+                            onclick="checkMutasiTime(event)"
+                            target="_blank"
+                            class="group flex items-center justify-center gap-3 py-4 px-6 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
+                                <i data-lucide="clipboard-list" class="w-6 h-6"></i>
+                                <span>Isi Formulir Pendaftaran</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="time-alert-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity" onclick="closeTimeAlert()"></div>
+        
+        <div class="relative bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl scale-95 animate-[scaleIn_0.2s_ease-out_forwards]">
+            <div class="w-20 h-20 bg-red-100 text-sd-red rounded-full flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="clock" class="w-10 h-10"></i>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Pendaftaran Belum Dibuka</h3>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                Mohon maaf, link pendaftaran baru dapat diakses pada: <br>
+                <span class="font-bold text-gray-900 bg-gray-100 px-2 py-1 rounded mt-2 inline-block">Senin, 5 Januari 2026 pukul 06.00 WIB</span>
+            </p>
+            
+            <button onclick="closeTimeAlert()" class="w-full bg-gray-900 text-white font-bold py-3 rounded-xl hover:bg-gray-800 transition-colors">
+                Mengerti, Saya Akan Kembali Nanti
+            </button>
+        </div>
+    </div>
+
     <section id="informasi" class="py-24 bg-gray-50 pt-32">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
