@@ -602,3 +602,67 @@ async function updateVisitorCount() {
 
 // Panggil fungsi ini saat halaman dimuat
 updateVisitorCount();
+
+// ==========================================
+// 8. LOGIKA SECTION MUTASI (NEW)
+// ==========================================
+
+// A. Fungsi Toggle Accordion (Buka/Tutup)
+function toggleMutasi() {
+    const content = document.getElementById('mutasi-content');
+    const iconContainer = document.getElementById('mutasi-icon');
+    const icon = iconContainer.querySelector('i');
+    
+    if (content.classList.contains('hidden')) {
+        // BUKA
+        content.classList.remove('hidden');
+        content.classList.add('block', 'animate-[fadeUp_0.3s_ease-out]'); // Tambah animasi dikit
+        
+        // Putar Icon & Ubah Warna
+        iconContainer.style.transform = 'rotate(180deg)';
+        iconContainer.classList.add('bg-sd-red', 'text-white', 'border-sd-red');
+        iconContainer.classList.remove('bg-white', 'text-gray-400', 'border-gray-200');
+    } else {
+        // TUTUP
+        content.classList.add('hidden');
+        content.classList.remove('block');
+        
+        // Reset Icon
+        iconContainer.style.transform = 'rotate(0deg)';
+        iconContainer.classList.remove('bg-sd-red', 'text-white', 'border-sd-red');
+        iconContainer.classList.add('bg-white', 'text-gray-400', 'border-gray-200');
+    }
+}
+
+// B. Fungsi Cek Waktu (Time Lock)
+function checkMutasiTime(e) {
+    // Waktu Target: 5 Januari 2026, 06:00:00 WIB (GMT+7)
+    // Format ISO string dengan Timezone Offset +07:00
+    const targetDate = new Date("2026-01-05T06:00:00+07:00");
+    const now = new Date();
+
+    // Jika waktu sekarang masih KURANG DARI target
+    if (now < targetDate) {
+        e.preventDefault(); // Mencegah link terbuka
+        
+        // Tampilkan Modal Peringatan
+        const modal = document.getElementById('time-alert-modal');
+        if(modal) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Re-init icon lucide di dalam modal (jaga-jaga)
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+    }
+    // Jika sudah lewat waktu, biarkan link bekerja normal (default)
+}
+
+// C. Tutup Modal Peringatan
+function closeTimeAlert() {
+    const modal = document.getElementById('time-alert-modal');
+    if(modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+}
