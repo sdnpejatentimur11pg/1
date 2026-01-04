@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 6. Modal Guru (Logika Filter Tetap Sama)
-    window.openModal = function() {
+    window.openTeacherModal = function() {
         const modal = document.getElementById('teacher-modal');
         const modalContent = document.getElementById('modal-content');
         if (!modal) return;
@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalContent.innerHTML = html;
     };
 
-    window.closeModal = function() {
+    window.closeTeacherModal = function() {
         document.getElementById('teacher-modal').classList.add('hidden');
         document.getElementById('teacher-modal').classList.remove('flex');
         document.body.style.overflow = 'auto';
@@ -666,3 +666,52 @@ function closeTimeAlert() {
         modal.classList.remove('flex');
     }
 }
+
+// ==========================================
+// 9. LOGIKA MODAL GLOBAL (NEW)
+// ==========================================
+
+// ==========================================
+// 9. LOGIKA MODAL GLOBAL (PERBAIKAN)
+// ==========================================
+
+// Fungsi Router Modal
+window.openModal = function(modalId) {
+    // 1. Jika tidak ada modalId (tombol Guru lama) ATAU ID-nya 'teacher-modal'
+    if (!modalId || modalId === 'teacher-modal') {
+        if (typeof window.openTeacherModal === 'function') {
+            window.openTeacherModal(); // Panggil fungsi yang sudah direname tadi
+        } else {
+            console.error("Maaf, fungsi openTeacherModal belum direname di bagian no. 6");
+        }
+        return;
+    }
+
+    // 2. Logic Generic untuk Modal Baru (Jadwal, Daya Tampung, News)
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        // Khusus Modal Berita (News) perlu handling khusus jika dipanggil manual,
+        // tapi biasanya news dipanggil via openNewsModal(index), jadi aman.
+        
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    } else {
+        console.warn("Modal dengan ID " + modalId + " tidak ditemukan.");
+    }
+};
+
+// Fungsi Tutup Modal Global
+window.closeModal = function(modalId) {
+    // Jika ID kosong, default tutup modal guru
+    const id = modalId || 'teacher-modal';
+    const modal = document.getElementById(id);
+    
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+    }
+};
